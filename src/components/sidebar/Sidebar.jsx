@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./sidebar.scss";
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
@@ -12,35 +12,53 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import StoreIcon from '@mui/icons-material/Store';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
+import { Link } from "react-router-dom";
+import { DarkModeContext } from "../../context/darkModeContext";
 
 const Sidebar = () => {
+    const {dispatch} = useContext(DarkModeContext);
+
     return (
         <div className="sidebar">
             <div className="top">
-                <span className="logo">Admin Panel</span>
+                <Link to="/" style={links}>
+                    <span className="logo">Admin Panel</span>
+                </Link>
             </div>
 
             <hr/>
             <div className="center">
                 <ul>
                     <p className="title">MAIN</p>
-                    <li>
-                        <DashboardIcon className="icon" />
-                        <span>Dashboard</span>
-                    </li>
+                    <Link to="/" style={links}>
+                        <li>
+                            <DashboardIcon className="icon" />
+                            <span>Dashboard</span>
+                        </li>
+                    </Link>
+
                     <p className="title">LISTS</p>
-                    <li>
-                        <PersonOutlineIcon className="icon" />
-                        <span>Users</span>
-                    </li>
-                    <li>
-                        <StoreIcon className="icon" />
-                        <span>Products</span>
-                    </li>
-                    <li>
-                        <CreditCardIcon className="icon" />
-                        <span>Orders</span>
-                    </li>
+                    <Link to="/users" style={links}>
+                        <li>
+                            <PersonOutlineIcon className="icon" />
+                            <span>Users</span>
+                        </li>
+                    </Link>
+
+                    <Link to="/products" style={links}>
+                        <li>
+                            <StoreIcon className="icon" />
+                            <span>Products</span>
+                        </li>
+                    </Link>
+
+                    <Link to="/orders" style={links}>
+                        <li>
+                            <CreditCardIcon className="icon" />
+                            <span>Orders</span>
+                        </li>
+                    </Link>
+
                     <li>
                         <LocalShippingIcon className="icon" />
                         <span>Delivery</span>
@@ -79,11 +97,15 @@ const Sidebar = () => {
                 </ul>
             </div>
             <div className="bottom">
-                <div className="colorOption" />
-                <div className="colorOption" />
+                <div className="colorOption" onClick={() => dispatch({ type: "LIGHT" })} />
+                <div className="colorOption" onClick={() => dispatch({ type: "DARK" })} />
             </div>
         </div>
     );
+}
+
+const links = {
+    textDecoration: "none"
 }
 
 export default Sidebar;

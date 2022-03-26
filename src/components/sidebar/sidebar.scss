@@ -79,8 +79,12 @@
                 background-color: whitesmoke;
             }
 
-            &:nth-child(1) {
+            &:nth-child(2) {
                 background-color: #333;
+            }
+
+            &:nth-child(3){
+                background-color: darkblue;
             }
         }
     }
